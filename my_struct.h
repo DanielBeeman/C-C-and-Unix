@@ -23,3 +23,31 @@ typedef struct
 	double minY;
 	double maxY;
 }Rectangle;
+
+
+typedef union {
+	Rectangle r;
+	Circle c;
+	Triangle t;
+}ShapeUnion;
+
+typedef enum {
+	rect,
+	circ,
+	tria,
+}ShapeType; 
+
+struct Shape;
+ 
+typedef struct {
+	double (*GetArea)(struct Shape *);
+	void (*GetBoundingBox)(struct Shape *, double *);
+}FunctionTable;
+
+struct Shape{
+	ShapeUnion su;
+	ShapeType st;
+	FunctionTable ft;
+};
+
+

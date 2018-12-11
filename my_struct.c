@@ -1,73 +1,84 @@
-/* This file should contain the 9 functions defined in prototypes.h */
-
 #include <prototypes.h>
 
 
 //Circle functions
-void InitializeCircle(Circle *circ, double radius, double originX, double originY)
+void InitializeCircle(struct Shape *circl, double radius, double originX, double originY)
 {
-	circ->radius = radius;
-	circ->originX = originX;
-	circ->originY = originY;
+	circl -> st = circ;
+	circl -> ft.GetArea = GetCircleArea;
+	circl -> ft.GetBoundingBox = GetCircleBoundingBox;
+	circl -> su.c.radius = radius;
+	circl -> su.c.originX = originX;
+	circl -> su.c.originY = originY;
 }
 
-double GetCircleArea(Circle *circ) 
+double GetCircleArea(struct Shape *circl) 
 {
-return (3.14159*circ->radius*circ->radius);
+return (3.14159*circl -> su.c.radius*circl -> su.c.radius);
 }
 
-void GetCircleBoundingBox(Circle *circ, double *bbox)
+void GetCircleBoundingBox(struct Shape *circl, double *bbox)
 {
-	bbox[0] = circ->originX - circ->radius; 
-	bbox[1] = circ->originX + circ->radius;
-	bbox[2] = circ->originY - circ->radius;
-	bbox[3] = circ->originY + circ->radius;
+	bbox[0] = circl -> su.c.originX - circl -> su.c.radius; 
+	bbox[1] = circl -> su.c.originX + circl -> su.c.radius; 
+	bbox[2] = circl -> su.c.originY - circl -> su.c.radius; 
+	bbox[3] = circl -> su.c.originY + circl -> su.c.radius; 
 }
 
 
 //Rectangle functions
-void InitializeRectangle(Rectangle *rect, double minX, double maxX, double minY, double maxY)
+void InitializeRectangle(struct Shape *recta, double minX, double maxX, double minY, double maxY)
 {
-	rect->minX = minX;
-	rect->maxX = maxX;
-	rect->minY = minY;
-	rect->maxY = maxY;
+	recta -> st = rect;
+	recta -> ft.GetArea = GetRectangleArea;
+	recta -> ft.GetBoundingBox = GetRectangleBoundingBox;
+	recta -> su.r.minX = minX;
+	recta -> su.r.maxX = maxX;
+	recta -> su.r.minY = minY;
+	recta -> su.r.maxY = maxY;
 
 }
 
-double GetRectangleArea(Rectangle *rect)
+double GetRectangleArea(struct Shape *recta)
 {
-return (rect->maxX-rect->minX)*(rect->maxY-rect->minY);
+return (recta -> su.r.maxX-recta -> su.r.minX)*(recta -> su.r.maxY-recta -> su.r.minY);
 }
 
-void GetRectangleBoundingBox(Rectangle *rect, double *bbox) 
+void GetRectangleBoundingBox(struct Shape *recta, double *bbox) 
 {
-	bbox[0] = rect->minX;
-	bbox[1] = rect->maxX;
-	bbox[2] = rect->minY;
-	bbox[3] = rect->maxY;
+	bbox[0] = recta -> su.r.minX;
+	bbox[1] = recta -> su.r.maxX;
+	bbox[2] = recta -> su.r.minY;
+	bbox[3] = recta -> su.r.maxY;
 	
 }
 
 
 //Traingle functions
-void InitializeTriangle(Triangle *tri, double pt1X, double pt2X, double minY, double maxY)
+void InitializeTriangle(struct Shape *tri, double pt1X, double pt2X, double minY, double maxY)
 {
-	tri->pt1X = pt1X;
-	tri->pt2X = pt2X;
-	tri->minY = minY;
-	tri->maxY = maxY;
+	tri -> st = tria;
+	tri -> ft.GetArea = GetTriangleArea;
+	tri -> ft.GetBoundingBox = GetTriangleBoundingBox;
+	tri -> su.t.pt1X = pt1X;
+	tri -> su.t.pt2X = pt2X;
+	tri -> su.t.minY = minY;
+	tri -> su.t.maxY = maxY;
 }
 
-double GetTriangleArea(Triangle *tri)
+double GetTriangleArea(struct Shape *tri)
 {
-return (tri->pt2X - tri->pt1X) * (tri->maxY - tri->minY) / 2;
+return (tri -> su.t.pt2X - tri -> su.t.pt1X) * (tri -> su.t.maxY - tri ->su.t.minY) / 2;
 }
 
-void GetTriangleBoundingBox(Triangle *tri, double *bbox) 
+void GetTriangleBoundingBox(struct Shape *tri, double *bbox) 
 {
-	bbox[0] = tri->pt1X;
-	bbox[1] = tri->pt2X;
-	bbox[2] = tri->minY;
-	bbox[3] = tri->maxY;
+	bbox[0] = tri -> su.t.pt1X;
+	bbox[1] = tri -> su.t.pt2X;
+	bbox[2] = tri -> su.t.minY;
+	bbox[3] = tri -> su.t.maxY;
 }
+
+
+
+
